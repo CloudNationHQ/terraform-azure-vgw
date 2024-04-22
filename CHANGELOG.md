@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.1.0...v0.2.0) (2024-04-22)
+
+
+### Features
+
+* small update documentation ([#5](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/5)) ([e933e5e](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/e933e5ef4d815c342f19b5cd7419fad4265118f9))
+
 ## 0.1.0 (2024-04-22)
 
 
