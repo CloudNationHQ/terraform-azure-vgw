@@ -1,12 +1,12 @@
 variable "local_gateways" {
   description = "contains local gateway configuration"
-  type = any
+  type        = any
 }
 
 variable "virtual_network_gateway_id" {
   description = "contains virtual network gateway id"
-  type    = string
-  default = null
+  type        = string
+  default     = null
 }
 
 variable "location" {
