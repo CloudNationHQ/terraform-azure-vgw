@@ -9,6 +9,7 @@ resource "azurerm_local_network_gateway" "lgw" {
   gateway_fqdn    = try(each.value.gateway_fqdn, null)
   address_space   = try(each.value.address_space, null)
   gateway_address = try(each.value.gateway_address, "12.13.14.15")
+  tags            = try(each.value.tags, var.tags, null)
 }
 
 # connections
@@ -31,4 +32,5 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
   express_route_circuit_id   = try(each.value.connection.express_route_circuit_id, null)
   egress_nat_rule_ids        = try(each.value.connection.egress_nat_rule_ids, null)
   ingress_nat_rule_ids       = try(each.value.connection.ingress_nat_rule_ids, null)
+  tags                       = try(each.value.connection.tags, var.tags, null)
 }
