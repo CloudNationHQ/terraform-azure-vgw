@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.4.0...v0.5.0) (2024-06-07)
+
+
+### Features
+
+* add pull request template ([d9319b6](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/d9319b6fdbdd432101e25e64c61cfdbf67c28d22))
+
 ## [0.4.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.3.0...v0.4.0) (2024-06-04)
 
 
