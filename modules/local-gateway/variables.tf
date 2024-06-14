@@ -27,12 +27,6 @@ variable "naming" {
   default     = null
 }
 
-variable "dpd_timeout_seconds" {
-  description = "dead peer detection timeout in seconds"
-  type        = number
-  default     = 45
-}
-
 variable "tags" {
   description = "tags to be added to the resources"
   type        = map(string)
