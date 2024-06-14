@@ -37,6 +37,7 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
   local_azure_ip_address_enabled     = try(each.value.connection.local_azure_ip_address_enabled, false)
   peer_virtual_network_gateway_id    = try(each.value.connection.peer_virtual_network_gateway_id, null)
   private_link_fast_path_enabled     = try(each.value.connection.private_link_fast_path_enabled, false)
+  dpd_timeout_seconds                = try(each.value.connection.dpd_timeout_seconds, var.dpd_timeout_seconds)
   tags                               = try(each.value.connection.tags, var.tags, null)
 
   dynamic "ipsec_policy" {
