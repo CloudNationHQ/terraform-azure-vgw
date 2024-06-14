@@ -5,7 +5,7 @@ This example demonstrates the setup and integration of local network gateways wi
 ```hcl
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 0.5"
+  version = "~> 0.6"
 
   naming = local.naming
 
