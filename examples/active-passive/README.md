@@ -5,7 +5,7 @@ This example showcases the setup of an active passive configuration.
 ```hcl
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 0.6"
+  version = "~> 0.7"
 
   naming = local.naming
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.6.1...v0.7.0) (2024-07-02)
+
+
+### Features
+
+* add issue template ([#26](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/26)) ([68d280b](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/68d280b46385ab9d8412120611b749837991c79d))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#27](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/27)) ([f76b2d8](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/f76b2d80b63b6dbcb4511528a94a755a6b10094f))
+
 ## [0.6.1](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.6.0...v0.6.1) (2024-06-21)
 
 
