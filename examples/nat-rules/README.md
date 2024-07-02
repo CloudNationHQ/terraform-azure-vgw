@@ -5,7 +5,7 @@ This example showcases the configuration of NAT rules.
 ```hcl
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 0.6"
+  version = "~> 0.7"
 
   naming = local.naming
 
