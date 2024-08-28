@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.8.0...v0.9.0) (2024-08-28)
+
+
+### Features
+
+* update documentation ([#32](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/32)) ([26c46bb](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/26c46bbf02674541ec4f228cdfc355e94617d712))
+
 ## [0.8.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.7.0...v0.8.0) (2024-08-28)
 
 
