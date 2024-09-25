@@ -9,7 +9,7 @@ resource "azurerm_virtual_network_gateway_nat_rule" "rules" {
   # Conditionally assign ip_configuration_id only if the type is "Dynamic"
   ip_configuration_id = each.value.type == "Dynamic" ? each.value.ip_configuration_id : null
 
-  resource_group_name = var.resourcegroup
+  resource_group_name = var.resource_group
 
   external_mapping {
     address_space = each.value.external_mappings.address_space

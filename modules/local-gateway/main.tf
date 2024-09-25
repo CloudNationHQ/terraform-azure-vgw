@@ -2,7 +2,7 @@
 resource "azurerm_local_network_gateway" "lgw" {
   for_each = var.local_gateways
 
-  resource_group_name = var.resourcegroup
+  resource_group_name = var.resource_group
   location            = var.location
 
   name            = try(each.value.name, join("-", [var.naming.local_network_gateway, each.key]))
@@ -16,7 +16,7 @@ resource "azurerm_local_network_gateway" "lgw" {
 resource "azurerm_virtual_network_gateway_connection" "example" {
   for_each = var.local_gateways
 
-  resource_group_name = var.resourcegroup
+  resource_group_name = var.resource_group
   location            = var.location
 
   name                               = try(each.value.connection.name, join("-", [var.naming.virtual_network_gateway_connection, each.key]))

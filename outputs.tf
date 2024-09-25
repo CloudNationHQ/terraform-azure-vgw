@@ -12,7 +12,7 @@ output "ip_configuration_ids" {
       name = format(
         "/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Network/virtualNetworkGateways/%s/ipConfigurations/%s",
         data.azurerm_subscription.current.subscription_id,
-        var.gateway.resourcegroup,
+        var.gateway.resource_group,
         var.gateway.name,
         config.name
       )
