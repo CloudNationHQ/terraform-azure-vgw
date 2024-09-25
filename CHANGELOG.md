@@ -5,11 +5,19 @@
 
 ### ⚠ BREAKING CHANGES
 
-* * Version 4 of the azurerm provider includes breaking changes.
+* Version 4 of the azurerm provider includes breaking changes.
 
 ### Features
 
 * upgrade azurerm provider to v4 ([#35](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/35)) ([893aa76](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/893aa76d917aaa8c0dcfc5359c4516abc892ae7a))
+
+### Upgrade from v0.9.0 to v1.0.0:
+
+- Update module reference to: `version = "~> 1.0"`
+- Change properties in gateway object:
+  - resourcegroup -> resource_group
+- Rename variable:
+  - resourcegroup -> resource_group
 
 ## [0.9.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v0.8.0...v0.9.0) (2024-08-28)
 
