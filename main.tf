@@ -3,7 +3,7 @@ data "azurerm_subscription" "current" {}
 # virtual network gateway
 resource "azurerm_virtual_network_gateway" "vgw" {
   name                                  = var.gateway.name
-  resource_group_name                   = coalesce(lookup(var.gateway, "resourcegroup", null), var.resourcegroup)
+  resource_group_name                   = coalesce(lookup(var.gateway, "resource_group", null), var.resource_group)
   location                              = coalesce(lookup(var.gateway, "location", null), var.location)
   sku                                   = try(var.gateway.sku, "VpnGw5AZ")
   type                                  = try(var.gateway.type, "Vpn")
@@ -156,9 +156,9 @@ resource "azurerm_public_ip" "pips" {
   for_each = var.gateway.ip_configurations
 
   resource_group_name = coalesce(
-    try(lookup(each.value.public_ip, "resourcegroup", null), null),
-    lookup(var.gateway, "resourcegroup", null),
-    var.resourcegroup
+    try(lookup(each.value.public_ip, "resource_group", null), null),
+    lookup(var.gateway, "resource_group", null),
+    var.resource_group
   )
 
   location = coalesce(

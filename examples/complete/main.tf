@@ -2,32 +2,32 @@ module "naming" {
   source  = "cloudnationhq/naming/azure"
   version = "~> 0.1"
 
-  suffix = ["demo", "prd"]
+  suffix = ["demo", "dev"]
 }
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 0.1"
+  version = "~> 2.0"
 
   groups = {
     demo = {
-      name   = module.naming.resource_group.name
-      region = "northeurope"
+      name     = module.naming.resource_group.name
+      location = "northeurope"
     }
   }
 }
 
 module "network" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 2.0"
+  version = "~> 4.0"
 
   naming = local.naming
 
   vnet = {
-    name          = module.naming.virtual_network.name
-    cidr          = ["10.18.0.0/16"]
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
+    name           = module.naming.virtual_network.name
+    cidr           = ["10.18.0.0/16"]
+    location       = module.rg.groups.demo.location
+    resource_group = module.rg.groups.demo.name
 
     subnets = {
       sn1 = {
@@ -39,11 +39,13 @@ module "network" {
 }
 
 module "lgw" {
+  #source  = "cloudnationhq/vgw/azure//modules/local-gateway"
+  #version = "~> 1.0"
   source = "../../modules/local-gateway/"
 
-  naming        = local.naming
-  resourcegroup = module.rg.groups.demo.name
-  location      = module.rg.groups.demo.location
+  naming         = local.naming
+  resource_group = module.rg.groups.demo.name
+  location       = module.rg.groups.demo.location
 
   virtual_network_gateway_id = module.vgw.gateway.id
 
@@ -59,15 +61,16 @@ module "lgw" {
 }
 
 module "vgw" {
-  source = "../.."
+  source  = "cloudnationhq/vgw/azure"
+  version = "~> 1.0"
 
   naming = local.naming
 
   gateway = {
-    name          = module.naming.virtual_network_gateway.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-    active_active = true
+    name           = module.naming.virtual_network_gateway.name
+    location       = module.rg.groups.demo.location
+    resource_group = module.rg.groups.demo.name
+    active_active  = true
 
     bgp_settings             = local.bgp_settings
     vpn_client_configuration = local.vpn_client_configuration
