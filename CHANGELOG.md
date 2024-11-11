@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.1.0...v1.2.0) (2024-11-11)
+
+
+### Features
+
+* enhance testing with sequential, parallel modes and flags for exceptions and skip-destroy ([#40](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/40)) ([2b213a4](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/2b213a41065c2c57ea2d49a105d633d368dc107c))
+
 ## [1.1.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.0.0...v1.1.0) (2024-10-11)
 
 
