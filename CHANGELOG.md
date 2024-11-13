@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.2.0...v1.2.1) (2024-11-13)
+
+
+### Bug Fixes
+
+* fix submodule documentation generation ([#42](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/42)) ([450ec62](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/450ec6250336fce2e3c4f004ac93536e0ae135a3))
+
 ## [1.2.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.1.0...v1.2.0) (2024-11-11)
 
 
