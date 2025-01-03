@@ -181,7 +181,11 @@ resource "azurerm_public_ip" "pips" {
   ddos_protection_plan_id = try(each.value.public_ip.ddos_protection_plan_id, null)
   idle_timeout_in_minutes = try(each.value.public_ip.idle_timeout_in_minutes, null)
   ip_tags                 = try(each.value.public_ip.ip_tags, null)
-  tags                    = try(each.value.public_ip.tags, var.tags, null)
+  domain_name_label_scope = try(each.value.public_ip.domain_name_label_scope, null)
+
+  tags = try(
+    each.value.public_ip.tags, var.tags, null
+  )
 
   # https://github.com/hashicorp/terraform-provider-azurerm/issues/17885
   lifecycle {
