@@ -1,25 +1,17 @@
-This example showcases the setup of an active passive configuration.
+# Active Passive
 
-## Usage
+This deploys a active passive vpn gateway
+
+## Types
 
 ```hcl
-module "vgw" {
-  source  = "cloudnationhq/vgw/azure"
-  version = "~> 0.8"
-
-  naming = local.naming
-
-  gateway = {
-    name          = module.naming.virtual_network_gateway.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-
-    ip_configurations = {
-      default = {
-        name      = "vnetgatewayconfig"
-        subnet_id = module.network.subnets.sn1.id
-      }
-    }
-  }
-}
+gateway = object({
+  name           = string
+  location       = optional(string)
+  resource_group = optional(string)
+  ip_configurations = map(object({
+    name      = string
+    subnet_id = string
+  }))
+})
 ```

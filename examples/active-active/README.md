@@ -1,30 +1,18 @@
-This example showcases the setup of an active active configuration.
+# Active Active
 
-## Usage
+This deploys a active active vpn gateway
+
+## Types
 
 ```hcl
-module "vgw" {
-  source  = "cloudnationhq/vgw/azure"
-  version = "~> 0.8"
-
-  naming = local.naming
-
-  gateway = {
-    name          = module.naming.virtual_network_gateway.name
-    location      = module.rg.groups.demo.location
-    resourcegroup = module.rg.groups.demo.name
-    active_active = true
-
-    ip_configurations = {
-      config1 = {
-        name      = "config1"
-        subnet_id = module.network.subnets.sn1.id
-      },
-      config2 = {
-        name      = "config2"
-        subnet_id = module.network.subnets.sn1.id
-      }
-    }
-  }
-}
+gateway = object({
+  name           = string
+  location       = optional(string)
+  resource_group = optional(string)
+  active_active  = optional(bool)
+  ip_configurations = map(object({
+    name      = string
+    subnet_id = string
+  }))
+})
 ```
