@@ -9,7 +9,20 @@ resource "azurerm_local_network_gateway" "lgw" {
   gateway_fqdn    = try(each.value.gateway_fqdn, null)
   address_space   = try(each.value.address_space, null)
   gateway_address = try(each.value.gateway_address, "12.13.14.15")
-  tags            = try(each.value.tags, var.tags, null)
+
+  dynamic "bgp_settings" {
+    for_each = try(each.value.bgp_settings != null ? [each.value.bgp_settings] : [], [])
+
+    content {
+      asn                 = bgp_settings.value.asn
+      bgp_peering_address = bgp_settings.value.bgp_peering_address
+      peer_weight         = try(bgp_settings.value.peer_weight, null)
+    }
+  }
+
+  tags = try(
+    each.value.tags, var.tags, null
+  )
 }
 
 # connections
@@ -38,7 +51,10 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
   peer_virtual_network_gateway_id    = try(each.value.connection.peer_virtual_network_gateway_id, null)
   private_link_fast_path_enabled     = try(each.value.connection.private_link_fast_path_enabled, false)
   dpd_timeout_seconds                = try(each.value.connection.dpd_timeout_seconds, 45)
-  tags                               = try(each.value.connection.tags, var.tags, null)
+
+  tags = try(
+    each.value.connection.tags, var.tags, null
+  )
 
   dynamic "ipsec_policy" {
     for_each = try(each.value.connection.ipsec_policy != null ? [each.value.connection.ipsec_policy] : [], [])
@@ -50,6 +66,23 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
       ipsec_encryption = ipsec_policy.value.ipsec_encryption
       ipsec_integrity  = ipsec_policy.value.ipsec_integrity
       pfs_group        = ipsec_policy.value.pfs_group
+    }
+  }
+
+  dynamic "custom_bgp_addresses" {
+    for_each = try(each.value.connection.custom_bgp_addresses != null ? [each.value.connection.custom_bgp_addresses] : [], [])
+
+    content {
+      primary   = custom_bgp_addresses.value.primary
+      secondary = try(custom_bgp_addresses.value.secondary, null)
+    }
+  }
+
+  dynamic "traffic_selector_policy" {
+    for_each = try(each.value.connection.traffic_selector_policy, {})
+    content {
+      local_address_cidrs  = traffic_selector_policy.value.local_address_cidrs
+      remote_address_cidrs = traffic_selector_policy.value.remote_address_cidrs
     }
   }
 }

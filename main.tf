@@ -18,7 +18,10 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   ip_sec_replay_protection_enabled      = try(var.gateway.ip_sec_replay_protection_enabled, true)
   bgp_route_translation_for_nat_enabled = try(var.gateway.bgp_route_translation_for_nat_enabled, false)
   default_local_network_gateway_id      = try(var.gateway.default_local_network_gateway_id, null)
-  tags                                  = try(var.gateway.tags, var.tags, null)
+
+  tags = try(
+    var.gateway.tags, var.tags, null
+  )
 
   dynamic "ip_configuration" {
     for_each = var.gateway.ip_configurations
