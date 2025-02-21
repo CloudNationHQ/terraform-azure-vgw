@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.3.0...v1.4.0) (2025-02-21)
+
+
+### Features
+
+* add edge zone support and default policy group flag ([#56](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/56)) ([8146e01](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/8146e01958859729fc10cc35e3ffbb1c40d609c4))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#55](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/55)) ([2d080fe](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/2d080fedda81b873111beebe5116e2c2e0c940e1))
+
 ## [1.3.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.2.1...v1.3.0) (2025-01-06)
 
 
