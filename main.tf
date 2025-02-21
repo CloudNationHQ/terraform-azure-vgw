@@ -18,6 +18,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   ip_sec_replay_protection_enabled      = try(var.gateway.ip_sec_replay_protection_enabled, true)
   bgp_route_translation_for_nat_enabled = try(var.gateway.bgp_route_translation_for_nat_enabled, false)
   default_local_network_gateway_id      = try(var.gateway.default_local_network_gateway_id, null)
+  edge_zone                             = try(var.gateway.edge_zone, null)
 
   tags = try(
     var.gateway.tags, var.tags, null
@@ -43,8 +44,9 @@ resource "azurerm_virtual_network_gateway" "vgw" {
     )
 
     content {
-      name     = policy_group.value.name
-      priority = policy_group.value.priority
+      name       = policy_group.value.name
+      priority   = policy_group.value.priority
+      is_default = try(policy_group.value.is_default, false)
 
       dynamic "policy_member" {
         for_each = try(
