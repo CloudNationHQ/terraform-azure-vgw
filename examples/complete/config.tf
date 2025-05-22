@@ -70,8 +70,7 @@ EOF
     }
   }
   policy_groups = {
-    group1 = {
-      name       = "DefaultAccessPolicyGroup"
+    default = {
       priority   = 1
       is_default = true
       policy_members = {
@@ -82,8 +81,7 @@ EOF
         }
       }
     },
-    group2 = {
-      name       = "GuestAccessPolicyGroup"
+    guest = {
       priority   = 10
       is_default = false
       policy_members = {
