@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.22"
+  version = "~> 0.24"
 
   suffix = ["demo", "dev"]
 }
@@ -40,22 +40,22 @@ module "network" {
 
 module "nat" {
   source  = "cloudnationhq/vgw/azure//modules/nat-rules"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
-  naming         = local.naming
-  resource_group = module.rg.groups.demo.name
-  rules          = local.rules
+  naming              = local.naming
+  resource_group_name = module.rg.groups.demo.name
+  rules               = local.rules
 
   virtual_network_gateway_id = module.vgw.gateway.id
 }
 
 module "lgw" {
   source  = "cloudnationhq/vgw/azure//modules/local-gateway"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
-  naming         = local.naming
-  resource_group = module.rg.groups.demo.name
-  location       = module.rg.groups.demo.location
+  naming              = local.naming
+  resource_group_name = module.rg.groups.demo.name
+  location            = module.rg.groups.demo.location
 
   virtual_network_gateway_id = module.vgw.gateway.id
 
@@ -76,14 +76,14 @@ module "lgw" {
 
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   naming = local.naming
 
   gateway = {
-    name           = module.naming.virtual_network_gateway.name
-    location       = module.rg.groups.demo.location
-    resource_group = module.rg.groups.demo.name
+    name                = module.naming.virtual_network_gateway.name
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
 
     ip_configurations = {
       default = {

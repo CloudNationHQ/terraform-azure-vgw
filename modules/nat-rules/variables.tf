@@ -1,6 +1,20 @@
 variable "rules" {
   description = "Contains all nat rules"
-  type        = any
+  type = map(object({
+    name                       = optional(string, null)
+    mode                       = string
+    type                       = string
+    virtual_network_gateway_id = optional(string, null)
+    ip_configuration_id        = optional(string, null)
+    external_mappings = object({
+      address_space = string
+      port_range    = optional(string, null)
+    })
+    internal_mappings = object({
+      address_space = string
+      port_range    = optional(string, null)
+    })
+  }))
 }
 
 variable "virtual_network_gateway_id" {
@@ -15,7 +29,7 @@ variable "location" {
   default     = null
 }
 
-variable "resource_group" {
+variable "resource_group_name" {
   description = "contains the resourcegroup name"
   type        = string
   default     = null
