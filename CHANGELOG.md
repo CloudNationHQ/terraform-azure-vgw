@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.4.0...v2.0.0) (2025-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* The data structure changed, causing a recreate on existing resources.
+
+### Features
+
+* small refactor ([#64](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/64)) ([784cfa2](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/784cfa2ab2284974a5291be9a46884af68f867c6))
+
 ## [1.4.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.3.0...v1.4.0) (2025-02-21)
 
 
