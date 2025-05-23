@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v2.0.0...v2.1.0) (2025-05-23)
+
+
+### Features
+
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#63](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/63)) ([58b83fe](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/58b83fefa8344f87411f2c580cab45db46ffe6ea))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.4.0...v2.0.0) (2025-05-22)
 
 
