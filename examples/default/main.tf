@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.25"
+  version = "~> 0.24"
 
   suffix = ["demo", "dev"]
 }
@@ -38,38 +38,6 @@ module "network" {
   }
 }
 
-module "public_ip" {
-  source  = "cloudnationhq/pip/azure"
-  version = "~> 4.0"
-
-  naming = local.naming
-
-  resource_group_name = module.rg.groups.demo.name
-  location            = module.rg.groups.demo.location
-
-  configs = {
-    pip1 = {
-      name              = "${module.naming.public_ip.name}-vgw"
-      allocation_method = "Static"
-      sku               = "Standard"
-      zones             = ["1", "2", "3"]
-    }
-  }
-}
-
-module "lgw" {
-  source  = "cloudnationhq/vgw/azure//modules/local-gateway"
-  version = "~> 3.0"
-
-  naming                     = local.naming
-  resource_group_name        = module.rg.groups.demo.name
-  location                   = module.rg.groups.demo.location
-  virtual_network_gateway_id = module.vgw.gateway.id
-
-  local_gateways = local.local_gateways
-
-}
-
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
   version = "~> 3.0"
@@ -82,10 +50,8 @@ module "vgw" {
     resource_group_name = module.rg.groups.demo.name
 
     ip_configurations = {
-      config1 = {
-        name                 = "config1"
-        subnet_id            = module.network.subnets.sn1.id
-        public_ip_address_id = module.public_ip.configs.pip1.id
+      default = {
+        subnet_id = module.network.subnets.sn1.id
       }
     }
   }

@@ -1,6 +1,6 @@
 module "naming" {
   source  = "cloudnationhq/naming/azure"
-  version = "~> 0.24"
+  version = "~> 0.25"
 
   suffix = ["demo", "dev"]
 }
@@ -19,15 +19,15 @@ module "rg" {
 
 module "network" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 8.0"
+  version = "~> 9.0"
 
   naming = local.naming
 
   vnet = {
-    name           = module.naming.virtual_network.name
-    address_space  = ["10.18.0.0/16"]
-    location       = module.rg.groups.demo.location
-    resource_group = module.rg.groups.demo.name
+    name                = module.naming.virtual_network.name
+    address_space       = ["10.18.0.0/16"]
+    location            = module.rg.groups.demo.location
+    resource_group_name = module.rg.groups.demo.name
 
     subnets = {
       sn1 = {
@@ -38,9 +38,28 @@ module "network" {
   }
 }
 
+module "public_ip" {
+  source  = "cloudnationhq/pip/azure"
+  version = "~> 4.0"
+
+  naming = local.naming
+
+  resource_group_name = module.rg.groups.demo.name
+  location            = module.rg.groups.demo.location
+
+  configs = {
+    pip1 = {
+      name              = "${module.naming.public_ip.name}-vgw"
+      allocation_method = "Static"
+      sku               = "Standard"
+      zones             = ["1", "2", "3"]
+    }
+  }
+}
+
 module "nat" {
   source  = "cloudnationhq/vgw/azure//modules/nat-rules"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   naming              = local.naming
   resource_group_name = module.rg.groups.demo.name
@@ -51,7 +70,7 @@ module "nat" {
 
 module "lgw" {
   source  = "cloudnationhq/vgw/azure//modules/local-gateway"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   naming              = local.naming
   resource_group_name = module.rg.groups.demo.name
@@ -76,7 +95,7 @@ module "lgw" {
 
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   naming = local.naming
 
@@ -87,8 +106,9 @@ module "vgw" {
 
     ip_configurations = {
       default = {
-        name      = "vnetgatewayconfig"
-        subnet_id = module.network.subnets.sn1.id
+        name                 = "vnetgatewayconfig"
+        subnet_id            = module.network.subnets.sn1.id
+        public_ip_address_id = module.public_ip.configs.pip1.id
       }
     }
   }

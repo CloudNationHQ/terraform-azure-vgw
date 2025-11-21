@@ -33,7 +33,6 @@ The following providers are used by this module:
 
 The following resources are used by this module:
 
-- [azurerm_public_ip.pips](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/public_ip) (resource)
 - [azurerm_virtual_network_gateway.vgw](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway) (resource)
 - [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) (data source)
 
@@ -50,8 +49,8 @@ Type:
 ```hcl
 object({
     name                                  = string
-    resource_group_name                   = optional(string, null)
-    location                              = optional(string, null)
+    resource_group_name                   = optional(string)
+    location                              = optional(string)
     sku                                   = optional(string, "VpnGw5AZ")
     type                                  = optional(string, "Vpn")
     vpn_type                              = optional(string, "RouteBased")
@@ -64,36 +63,17 @@ object({
     virtual_wan_traffic_enabled           = optional(bool, false)
     ip_sec_replay_protection_enabled      = optional(bool, true)
     bgp_route_translation_for_nat_enabled = optional(bool, false)
-    default_local_network_gateway_id      = optional(string, null)
-    edge_zone                             = optional(string, null)
+    default_local_network_gateway_id      = optional(string)
+    edge_zone                             = optional(string)
     tags                                  = optional(map(string))
     ip_configurations = map(object({
-      name                          = optional(string, null)
+      name                          = optional(string)
       subnet_id                     = string
       private_ip_address_allocation = optional(string, "Dynamic")
-      public_ip = optional(object({
-        name                    = optional(string, null)
-        resource_group_name     = optional(string, null)
-        location                = optional(string, null)
-        allocation_method       = optional(string, "Static")
-        sku                     = optional(string, "Standard")
-        zones                   = optional(list(string), ["1", "2", "3"])
-        prefix_id               = optional(string, null)
-        sku_tier                = optional(string, "Regional")
-        edge_zone               = optional(string, null)
-        ip_version              = optional(string, "IPv4")
-        reverse_fqdn            = optional(string, null)
-        domain_name_label       = optional(string, null)
-        ddos_protection_mode    = optional(string, "VirtualNetworkInherited")
-        ddos_protection_plan_id = optional(string, null)
-        idle_timeout_in_minutes = optional(number, null)
-        ip_tags                 = optional(map(string), null)
-        domain_name_label_scope = optional(string, null)
-        tags                    = optional(map(string), null)
-      }), {})
+      public_ip_address_id          = optional(string)
     }))
     policy_groups = optional(map(object({
-      name       = optional(string, null)
+      name       = optional(string)
       priority   = number
       is_default = optional(bool, false)
       policy_members = optional(map(object({
@@ -104,9 +84,9 @@ object({
     })), {})
     bgp_settings = optional(object({
       asn         = optional(number, 65515)
-      peer_weight = optional(number, null)
+      peer_weight = optional(number)
       peering_addresses = optional(map(object({
-        apipa_addresses       = optional(list(string), null)
+        apipa_addresses       = optional(list(string))
         ip_configuration_name = string
       })), {})
     }), null)
@@ -115,13 +95,13 @@ object({
     }), null)
     vpn_client_configuration = optional(object({
       address_space         = list(string)
-      aad_issuer            = optional(string, null)
-      aad_tenant            = optional(string, null)
-      aad_audience          = optional(string, null)
-      vpn_auth_types        = optional(list(string), null)
-      radius_server_secret  = optional(string, null)
-      vpn_client_protocols  = optional(list(string), null)
-      radius_server_address = optional(string, null)
+      aad_issuer            = optional(string)
+      aad_tenant            = optional(string)
+      aad_audience          = optional(string)
+      vpn_auth_types        = optional(list(string))
+      radius_server_secret  = optional(string)
+      vpn_client_protocols  = optional(list(string))
+      radius_server_address = optional(string)
       revoked_certificate = optional(map(object({
         name       = string
         thumbprint = string

@@ -80,6 +80,8 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
       ipsec_encryption = ipsec_policy.value.ipsec_encryption
       ipsec_integrity  = ipsec_policy.value.ipsec_integrity
       pfs_group        = ipsec_policy.value.pfs_group
+      sa_datasize      = ipsec_policy.value.sa_datasize
+      sa_lifetime      = ipsec_policy.value.sa_lifetime
     }
   }
 
