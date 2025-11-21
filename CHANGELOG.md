@@ -1,5 +1,21 @@
 # Changelog
 
+## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v2.0.0...v3.0.0) (2025-11-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* this change expects to change the existing data structure
+
+### Features
+
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#73](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/73)) ([5cbf216](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/5cbf2161d8ecba9aab3e506b1caea5381af68a63))
+* **deps:** bump github.com/gruntwork-io/terratest in /tests ([#63](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/63)) ([58b83fe](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/58b83fefa8344f87411f2c580cab45db46ffe6ea))
+* **deps:** bump github.com/ulikunitz/xz from 0.5.10 to 0.5.14 in /tests ([#69](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/69)) ([4970ae0](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/4970ae0cda2e42ac4b39a2db460e55468723bc8d))
+* **deps:** bump golang.org/x/crypto from 0.36.0 to 0.45.0 in /tests ([#74](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/74)) ([037a66d](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/037a66ddf6b925174099e9879736cc06400a41c5))
+* **deps:** bump golang.org/x/crypto from 0.41.0 to 0.45.0 in /tests ([#76](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/76)) ([ec735b2](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/ec735b29bc5d3ccdf1445c39a013906cd976f231))
+* remove public ip resource ([#75](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/75)) ([a859dab](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/a859dab8129041c64ae6c5f5fe9b97b2bbf85016))
+
 ## [2.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v1.4.0...v2.0.0) (2025-05-22)
 
 
