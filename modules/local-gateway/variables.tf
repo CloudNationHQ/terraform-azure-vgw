@@ -1,34 +1,34 @@
 variable "local_gateways" {
   description = "Contains all local gateway configuration"
   type = map(object({
-    name                       = optional(string, null)
-    gateway_fqdn               = optional(string, null)
-    address_space              = optional(list(string), null)
+    name                       = optional(string)
+    gateway_fqdn               = optional(string)
+    address_space              = optional(list(string))
     gateway_address            = optional(string, "12.13.14.15")
     tags                       = optional(map(string))
-    virtual_network_gateway_id = optional(string, null)
+    virtual_network_gateway_id = optional(string)
     bgp_settings = optional(object({
       asn                 = number
       bgp_peering_address = string
-      peer_weight         = optional(number, null)
+      peer_weight         = optional(number)
     }), null)
     connection = object({
-      name                               = optional(string, null)
+      name                               = optional(string)
       type                               = optional(string, "IPsec")
-      virtual_network_gateway_id         = optional(string, null)
+      virtual_network_gateway_id         = optional(string)
       shared_key                         = string
       enable_bgp                         = optional(bool, false)
-      routing_weight                     = optional(number, null)
+      routing_weight                     = optional(number)
       connection_mode                    = optional(string, "Default")
-      authorization_key                  = optional(string, null)
+      authorization_key                  = optional(string)
       connection_protocol                = optional(string, "IKEv2")
-      express_route_circuit_id           = optional(string, null)
-      egress_nat_rule_ids                = optional(list(string), null)
-      ingress_nat_rule_ids               = optional(list(string), null)
+      express_route_circuit_id           = optional(string)
+      egress_nat_rule_ids                = optional(list(string))
+      ingress_nat_rule_ids               = optional(list(string))
       use_policy_based_traffic_selectors = optional(bool, false)
       express_route_gateway_bypass       = optional(bool, false)
       local_azure_ip_address_enabled     = optional(bool, false)
-      peer_virtual_network_gateway_id    = optional(string, null)
+      peer_virtual_network_gateway_id    = optional(string)
       private_link_fast_path_enabled     = optional(bool, false)
       dpd_timeout_seconds                = optional(number, 45)
       tags                               = optional(map(string))
@@ -39,10 +39,12 @@ variable "local_gateways" {
         ipsec_encryption = string
         ipsec_integrity  = string
         pfs_group        = string
+        sa_datasize      = optional(number)
+        sa_lifetime      = optional(number)
       }), null)
       custom_bgp_addresses = optional(object({
         primary   = string
-        secondary = optional(string, null)
+        secondary = optional(string)
       }), null)
       traffic_selector_policy = optional(map(object({
         local_address_cidrs  = list(string)

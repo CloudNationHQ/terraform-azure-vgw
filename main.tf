@@ -44,7 +44,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
         ), ip_configuration.key
       )
 
-      public_ip_address_id = azurerm_public_ip.pips[ip_configuration.key].id
+      public_ip_address_id = ip_configuration.value.public_ip_address_id
       subnet_id            = ip_configuration.value.subnet_id
 
       private_ip_address_allocation = lookup(
@@ -190,48 +190,3 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   }
 }
 
-resource "azurerm_public_ip" "pips" {
-  for_each = var.gateway.ip_configurations
-
-  resource_group_name = coalesce(
-    try(lookup(each.value.public_ip, "resource_group_name", null), null),
-    lookup(var.gateway, "resource_group_name", null),
-    var.resource_group_name
-  )
-
-  location = coalesce(
-    try(lookup(each.value.public_ip, "location", null), null),
-    lookup(var.gateway, "location", null),
-    var.location
-  )
-
-  name = coalesce(
-    each.value.public_ip.name, try(
-      join("-", [var.naming.public_ip, each.key]), null
-    ), each.key
-  )
-
-  allocation_method       = each.value.public_ip.allocation_method
-  sku                     = each.value.public_ip.sku
-  zones                   = each.value.public_ip.zones
-  public_ip_prefix_id     = each.value.public_ip.prefix_id
-  sku_tier                = each.value.public_ip.sku_tier
-  edge_zone               = each.value.public_ip.edge_zone
-  ip_version              = each.value.public_ip.ip_version
-  reverse_fqdn            = each.value.public_ip.reverse_fqdn
-  domain_name_label       = each.value.public_ip.domain_name_label
-  ddos_protection_mode    = each.value.public_ip.ddos_protection_mode
-  ddos_protection_plan_id = each.value.public_ip.ddos_protection_plan_id
-  idle_timeout_in_minutes = each.value.public_ip.idle_timeout_in_minutes
-  ip_tags                 = each.value.public_ip.ip_tags
-  domain_name_label_scope = each.value.public_ip.domain_name_label_scope
-
-  tags = try(
-    each.value.public_ip.tags, var.tags, null
-  )
-
-  # https://github.com/hashicorp/terraform-provider-azurerm/issues/17885
-  lifecycle {
-    create_before_destroy = true
-  }
-}
