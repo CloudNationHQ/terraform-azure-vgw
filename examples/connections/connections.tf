@@ -15,19 +15,5 @@ locals {
         }
       }
     }
-    haga = {
-      gateway_address = "10.0.0.2"
-      address_space   = ["1.1.3.4/32", "4.3.2.7/32"]
-      connection = {
-        shared_key = "ie9p8y32r78eho'pmkl/dns3289ry"
-      }
-    }
-    lzr = {
-      gateway_address = "10.0.0.3"
-      address_space   = ["1.4.3.4/32", "4.4.2.7/32"]
-      connection = {
-        shared_key = "ie9p8y32r78eho'pmkl/dns3289ry"
-      }
-    }
   }
 }

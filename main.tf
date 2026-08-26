@@ -12,11 +12,11 @@ resource "azurerm_virtual_network_gateway" "this" {
   )
 
   name                                  = var.gateway.name
-  sku                                   = try(var.gateway.sku, "VpnGw5AZ")
-  type                                  = try(var.gateway.type, "Vpn")
+  sku                                   = coalesce(var.gateway.sku, "VpnGw5AZ")
+  type                                  = coalesce(var.gateway.type, "Vpn")
   vpn_type                              = var.gateway.vpn_type
   bgp_enabled                           = var.gateway.bgp_enabled
-  generation                            = try(var.gateway.generation, "Generation2")
+  generation                            = coalesce(var.gateway.generation, "Generation2")
   active_active                         = var.gateway.active_active
   dns_forwarding_enabled                = var.gateway.dns_forwarding_enabled
   private_ip_address_enabled            = var.gateway.private_ip_address_enabled

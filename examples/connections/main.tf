@@ -7,7 +7,7 @@ module "naming" {
 
 module "rg" {
   source  = "cloudnationhq/rg/azure"
-  version = "~> 2.0"
+  version = "~> 3.0"
 
   groups = {
     demo = {
@@ -19,9 +19,7 @@ module "rg" {
 
 module "network" {
   source  = "cloudnationhq/vnet/azure"
-  version = "~> 9.0"
-
-  naming = local.naming
+  version = "~> 10.0"
 
   vnet = {
     name                = module.naming.virtual_network.name
@@ -40,14 +38,12 @@ module "network" {
 
 module "public_ip" {
   source  = "cloudnationhq/pip/azure"
-  version = "~> 4.0"
-
-  naming = local.naming
+  version = "~> 5.0"
 
   resource_group_name = module.rg.groups.demo.name
   location            = module.rg.groups.demo.location
 
-  configs = {
+  public_ips = {
     pip1 = {
       name              = "${module.naming.public_ip.name}-vgw"
       allocation_method = "Static"
@@ -82,7 +78,7 @@ module "vgw" {
       config1 = {
         name                 = "config1"
         subnet_id            = module.network.subnets.sn1.id
-        public_ip_address_id = module.public_ip.configs.pip1.id
+        public_ip_address_id = module.public_ip.public_ips.pip1.id
       }
     }
   }

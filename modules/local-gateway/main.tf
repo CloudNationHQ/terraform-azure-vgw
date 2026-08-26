@@ -44,7 +44,7 @@ resource "azurerm_virtual_network_gateway_connection" "this" {
     var.virtual_network_gateway_id
   )
 
-  type                               = each.value.connection.type
+  type                               = coalesce(each.value.connection.type, "IPsec")
   local_network_gateway_id           = azurerm_local_network_gateway.this[each.key].id
   shared_key                         = each.value.connection.shared_key
   bgp_enabled                        = each.value.connection.bgp_enabled
