@@ -65,9 +65,7 @@ module "public_ip" {
 
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 3.0"
-
-  naming = local.naming
+  version = "~> 4.0"
 
   gateway = {
     name                = module.naming.virtual_network_gateway.name_unique

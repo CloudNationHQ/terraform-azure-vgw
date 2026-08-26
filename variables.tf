@@ -4,31 +4,31 @@ variable "gateway" {
     name                                  = string
     resource_group_name                   = optional(string)
     location                              = optional(string)
-    sku                                   = optional(string, "VpnGw5AZ")
-    type                                  = optional(string, "Vpn")
-    vpn_type                              = optional(string, "RouteBased")
-    enable_bgp                            = optional(bool, false)
-    generation                            = optional(string, "Generation2")
-    active_active                         = optional(bool, false)
-    dns_forwarding_enabled                = optional(bool, false)
-    private_ip_address_enabled            = optional(bool, false)
-    remote_vnet_traffic_enabled           = optional(bool, false)
-    virtual_wan_traffic_enabled           = optional(bool, false)
-    ip_sec_replay_protection_enabled      = optional(bool, true)
-    bgp_route_translation_for_nat_enabled = optional(bool, false)
+    sku                                   = optional(string)
+    type                                  = optional(string)
+    vpn_type                              = optional(string)
+    bgp_enabled                           = optional(bool)
+    generation                            = optional(string)
+    active_active                         = optional(bool)
+    dns_forwarding_enabled                = optional(bool)
+    private_ip_address_enabled            = optional(bool)
+    remote_vnet_traffic_enabled           = optional(bool)
+    virtual_wan_traffic_enabled           = optional(bool)
+    ip_sec_replay_protection_enabled      = optional(bool)
+    bgp_route_translation_for_nat_enabled = optional(bool)
     default_local_network_gateway_id      = optional(string)
     edge_zone                             = optional(string)
     tags                                  = optional(map(string))
     ip_configurations = map(object({
       name                          = optional(string)
       subnet_id                     = string
-      private_ip_address_allocation = optional(string, "Dynamic")
+      private_ip_address_allocation = optional(string)
       public_ip_address_id          = optional(string)
     }))
     policy_groups = optional(map(object({
       name       = optional(string)
       priority   = number
-      is_default = optional(bool, false)
+      is_default = optional(bool)
       policy_members = optional(map(object({
         name  = string
         value = string
@@ -36,7 +36,7 @@ variable "gateway" {
       })), {})
     })), {})
     bgp_settings = optional(object({
-      asn         = optional(number, 65515)
+      asn         = optional(number)
       peer_weight = optional(number)
       peering_addresses = optional(map(object({
         apipa_addresses       = optional(list(string))
@@ -94,12 +94,6 @@ variable "gateway" {
     condition     = var.gateway.resource_group_name != null || var.resource_group_name != null
     error_message = "resource group name must be provided either in the config object or as a separate variable."
   }
-}
-
-variable "naming" {
-  description = "contains naming convention"
-  type        = map(string)
-  default     = {}
 }
 
 variable "location" {

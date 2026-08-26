@@ -59,9 +59,8 @@ module "public_ip" {
 
 module "lgw" {
   source  = "cloudnationhq/vgw/azure//modules/local-gateway"
-  version = "~> 3.0"
+  version = "~> 4.0"
 
-  naming                     = local.naming
   resource_group_name        = module.rg.groups.demo.name
   location                   = module.rg.groups.demo.location
   virtual_network_gateway_id = module.vgw.gateway.id
@@ -72,9 +71,7 @@ module "lgw" {
 
 module "vgw" {
   source  = "cloudnationhq/vgw/azure"
-  version = "~> 3.0"
-
-  naming = local.naming
+  version = "~> 4.0"
 
   gateway = {
     name                = module.naming.virtual_network_gateway.name

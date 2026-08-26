@@ -21,20 +21,20 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_virtual_network_gateway.vgw](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway) (resource)
-- [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) (data source)
+- [azurerm_virtual_network_gateway.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway) (resource)
+- [azurerm_subscription.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) (data source)
 
 ## Required Inputs
 
@@ -51,31 +51,31 @@ object({
     name                                  = string
     resource_group_name                   = optional(string)
     location                              = optional(string)
-    sku                                   = optional(string, "VpnGw5AZ")
-    type                                  = optional(string, "Vpn")
-    vpn_type                              = optional(string, "RouteBased")
-    enable_bgp                            = optional(bool, false)
-    generation                            = optional(string, "Generation2")
-    active_active                         = optional(bool, false)
-    dns_forwarding_enabled                = optional(bool, false)
-    private_ip_address_enabled            = optional(bool, false)
-    remote_vnet_traffic_enabled           = optional(bool, false)
-    virtual_wan_traffic_enabled           = optional(bool, false)
-    ip_sec_replay_protection_enabled      = optional(bool, true)
-    bgp_route_translation_for_nat_enabled = optional(bool, false)
+    sku                                   = optional(string)
+    type                                  = optional(string)
+    vpn_type                              = optional(string)
+    bgp_enabled                           = optional(bool)
+    generation                            = optional(string)
+    active_active                         = optional(bool)
+    dns_forwarding_enabled                = optional(bool)
+    private_ip_address_enabled            = optional(bool)
+    remote_vnet_traffic_enabled           = optional(bool)
+    virtual_wan_traffic_enabled           = optional(bool)
+    ip_sec_replay_protection_enabled      = optional(bool)
+    bgp_route_translation_for_nat_enabled = optional(bool)
     default_local_network_gateway_id      = optional(string)
     edge_zone                             = optional(string)
     tags                                  = optional(map(string))
     ip_configurations = map(object({
       name                          = optional(string)
       subnet_id                     = string
-      private_ip_address_allocation = optional(string, "Dynamic")
+      private_ip_address_allocation = optional(string)
       public_ip_address_id          = optional(string)
     }))
     policy_groups = optional(map(object({
       name       = optional(string)
       priority   = number
-      is_default = optional(bool, false)
+      is_default = optional(bool)
       policy_members = optional(map(object({
         name  = string
         value = string
@@ -83,7 +83,7 @@ object({
       })), {})
     })), {})
     bgp_settings = optional(object({
-      asn         = optional(number, 65515)
+      asn         = optional(number)
       peer_weight = optional(number)
       peering_addresses = optional(map(object({
         apipa_addresses       = optional(list(string))
@@ -145,14 +145,6 @@ Description: default azure region to be used.
 Type: `string`
 
 Default: `null`
-
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type: `map(string)`
-
-Default: `{}`
 
 ### <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name)
 

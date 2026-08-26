@@ -1,25 +1,22 @@
-data "azurerm_subscription" "current" {}
+data "azurerm_subscription" "this" {}
 
 # virtual network gateway
-resource "azurerm_virtual_network_gateway" "vgw" {
+resource "azurerm_virtual_network_gateway" "this" {
 
   resource_group_name = coalesce(
-    lookup(
-      var.gateway, "resource_group_name", null
-    ), var.resource_group_name
+    var.gateway.resource_group_name, var.resource_group_name
   )
 
   location = coalesce(
-    lookup(var.gateway, "location", null
-    ), var.location
+    var.gateway.location, var.location
   )
 
   name                                  = var.gateway.name
-  sku                                   = var.gateway.sku
-  type                                  = var.gateway.type
+  sku                                   = try(var.gateway.sku, "VpnGw5AZ")
+  type                                  = try(var.gateway.type, "Vpn")
   vpn_type                              = var.gateway.vpn_type
-  enable_bgp                            = var.gateway.enable_bgp
-  generation                            = var.gateway.generation
+  bgp_enabled                           = var.gateway.bgp_enabled
+  generation                            = try(var.gateway.generation, "Generation2")
   active_active                         = var.gateway.active_active
   dns_forwarding_enabled                = var.gateway.dns_forwarding_enabled
   private_ip_address_enabled            = var.gateway.private_ip_address_enabled
@@ -39,17 +36,12 @@ resource "azurerm_virtual_network_gateway" "vgw" {
 
     content {
       name = coalesce(
-        ip_configuration.value.name, try(
-          join("-", [var.naming.virtual_network_gateway, ip_configuration.key]), null
-        ), ip_configuration.key
+        ip_configuration.value.name, ip_configuration.key
       )
 
-      public_ip_address_id = ip_configuration.value.public_ip_address_id
-      subnet_id            = ip_configuration.value.subnet_id
-
-      private_ip_address_allocation = lookup(
-        ip_configuration.value, "private_ip_address_allocation", "Dynamic"
-      )
+      public_ip_address_id          = ip_configuration.value.public_ip_address_id
+      subnet_id                     = ip_configuration.value.subnet_id
+      private_ip_address_allocation = ip_configuration.value.private_ip_address_allocation
     }
   }
 
@@ -83,16 +75,14 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   }
 
   dynamic "bgp_settings" {
-    for_each = try(var.gateway.bgp_settings, null) != null ? [1] : []
+    for_each = var.gateway.bgp_settings != null ? { "this" = var.gateway.bgp_settings } : {}
 
     content {
-      asn         = var.gateway.bgp_settings.asn
-      peer_weight = var.gateway.bgp_settings.peer_weight
+      asn         = bgp_settings.value.asn
+      peer_weight = bgp_settings.value.peer_weight
 
       dynamic "peering_addresses" {
-        for_each = try(
-          var.gateway.bgp_settings.peering_addresses, {}
-        )
+        for_each = bgp_settings.value.peering_addresses
 
         content {
           apipa_addresses       = peering_addresses.value.apipa_addresses
@@ -103,17 +93,15 @@ resource "azurerm_virtual_network_gateway" "vgw" {
   }
 
   dynamic "custom_route" {
-    for_each = try(var.gateway.custom_route, null) != null ? [1] : []
+    for_each = var.gateway.custom_route != null ? { "this" = var.gateway.custom_route } : {}
 
     content {
-      address_prefixes = var.gateway.custom_route.address_prefixes
+      address_prefixes = custom_route.value.address_prefixes
     }
   }
 
   dynamic "vpn_client_configuration" {
-    for_each = try(
-      var.gateway.vpn_client_configuration != null ? [var.gateway.vpn_client_configuration] : [], []
-    )
+    for_each = var.gateway.vpn_client_configuration != null ? { "this" = var.gateway.vpn_client_configuration } : {}
 
     content {
       address_space         = vpn_client_configuration.value.address_space
@@ -146,6 +134,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
           public_cert_data = root_certificate.value.public_cert_data
         }
       }
+
       dynamic "radius_server" {
         for_each = try(
           vpn_client_configuration.value.radius_server, {}
@@ -159,9 +148,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
       }
 
       dynamic "ipsec_policy" {
-        for_each = try(
-          var.gateway.vpn_client_configuration.ipsec_policy != null ? [var.gateway.vpn_client_configuration.ipsec_policy] : [], []
-        )
+        for_each = vpn_client_configuration.value.ipsec_policy != null ? { "this" = vpn_client_configuration.value.ipsec_policy } : {}
 
         content {
           dh_group                  = ipsec_policy.value.dh_group
@@ -177,7 +164,7 @@ resource "azurerm_virtual_network_gateway" "vgw" {
 
       dynamic "virtual_network_gateway_client_connection" {
         for_each = try(
-          vpn_client_configuration.virtual_network_gateway_client_connection, {}
+          vpn_client_configuration.value.virtual_network_gateway_client_connection, {}
         )
 
         content {
@@ -189,4 +176,3 @@ resource "azurerm_virtual_network_gateway" "vgw" {
     }
   }
 }
-

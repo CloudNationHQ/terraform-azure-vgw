@@ -9,20 +9,20 @@ The following requirements are needed by this module:
 
 - <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (~> 1.0)
 
-- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 4.0)
+- <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (~> 5.0)
 
 ## Providers
 
 The following providers are used by this module:
 
-- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 4.0)
+- <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) (~> 5.0)
 
 ## Resources
 
 The following resources are used by this module:
 
-- [azurerm_local_network_gateway.lgw](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/local_network_gateway) (resource)
-- [azurerm_virtual_network_gateway_connection.example](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway_connection) (resource)
+- [azurerm_local_network_gateway.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/local_network_gateway) (resource)
+- [azurerm_virtual_network_gateway_connection.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway_connection) (resource)
 
 ## Required Inputs
 
@@ -39,7 +39,7 @@ map(object({
     name                       = optional(string)
     gateway_fqdn               = optional(string)
     address_space              = optional(list(string))
-    gateway_address            = optional(string, "12.13.14.15")
+    gateway_address            = optional(string)
     tags                       = optional(map(string))
     virtual_network_gateway_id = optional(string)
     bgp_settings = optional(object({
@@ -49,23 +49,23 @@ map(object({
     }), null)
     connection = object({
       name                               = optional(string)
-      type                               = optional(string, "IPsec")
+      type                               = optional(string)
       virtual_network_gateway_id         = optional(string)
       shared_key                         = string
-      enable_bgp                         = optional(bool, false)
+      bgp_enabled                        = optional(bool)
       routing_weight                     = optional(number)
-      connection_mode                    = optional(string, "Default")
+      connection_mode                    = optional(string)
       authorization_key                  = optional(string)
-      connection_protocol                = optional(string, "IKEv2")
+      connection_protocol                = optional(string)
       express_route_circuit_id           = optional(string)
       egress_nat_rule_ids                = optional(list(string))
       ingress_nat_rule_ids               = optional(list(string))
-      use_policy_based_traffic_selectors = optional(bool, false)
-      express_route_gateway_bypass       = optional(bool, false)
-      local_azure_ip_address_enabled     = optional(bool, false)
+      use_policy_based_traffic_selectors = optional(bool)
+      express_route_gateway_bypass       = optional(bool)
+      local_azure_ip_address_enabled     = optional(bool)
       peer_virtual_network_gateway_id    = optional(string)
-      private_link_fast_path_enabled     = optional(bool, false)
-      dpd_timeout_seconds                = optional(number, 45)
+      private_link_fast_path_enabled     = optional(bool)
+      dpd_timeout_seconds                = optional(number)
       tags                               = optional(map(string))
       ipsec_policy = optional(object({
         dh_group         = string
@@ -98,14 +98,6 @@ The following input variables are optional (have default values):
 Description: contains the region
 
 Type: `string`
-
-Default: `null`
-
-### <a name="input_naming"></a> [naming](#input\_naming)
-
-Description: contains naming convention
-
-Type: `map(string)`
 
 Default: `null`
 
