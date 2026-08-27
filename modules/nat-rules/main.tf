@@ -1,4 +1,4 @@
-resource "azurerm_virtual_network_gateway_nat_rule" "rules" {
+resource "azurerm_virtual_network_gateway_nat_rule" "this" {
   for_each = var.rules
 
   name = coalesce(
@@ -12,7 +12,7 @@ resource "azurerm_virtual_network_gateway_nat_rule" "rules" {
     var.virtual_network_gateway_id
   )
 
-  # Conditionally assign ip_configuration_id only if the type is "Dynamic"
+  # ip_configuration_id is only valid for Dynamic type NAT rules
   ip_configuration_id = each.value.type == "Dynamic" ? each.value.ip_configuration_id : null
 
   resource_group_name = var.resource_group_name
