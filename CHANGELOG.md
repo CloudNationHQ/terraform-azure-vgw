@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v3.0.0...v4.0.0) (2026-08-27)
+
+
+### ⚠ BREAKING CHANGES
+
+* azurerm v5 upgrade ([#86](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/86))
+
+### Features
+
+* azurerm v5 upgrade ([#86](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/86)) ([a6c69ef](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/a6c69ef3fd06c68add99eaa4b8ddc804d32f8f3e))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#80](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/80)) ([5415c88](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/5415c88d3f2f76bad45ee0ca723733fbfe0087be))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#82](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/82)) ([b785cb6](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/b785cb69d33ad86c9c90deb0fcb2410f84efb448))
+* **deps:** bump github.com/cloudnationhq/az-cn-go-validor in /tests ([#83](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/83)) ([587dcba](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/587dcbaf1bedffa928062aedd359bb8e4a23412b))
+* **deps:** bump golang.org/x/crypto from 0.45.0 to 0.52.0 in /tests ([#84](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/84)) ([15f2618](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/15f2618c9bd10d0449027214cd2346f8938eb848))
+
 ## [3.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v2.0.0...v3.0.0) (2025-11-21)
 
 
