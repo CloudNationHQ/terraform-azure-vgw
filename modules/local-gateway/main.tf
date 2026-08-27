@@ -1,14 +1,12 @@
 # local gateways
-resource "azurerm_local_network_gateway" "lgw" {
+resource "azurerm_local_network_gateway" "this" {
   for_each = var.local_gateways
 
   resource_group_name = var.resource_group_name
   location            = var.location
 
   name = coalesce(
-    each.value.name, try(
-      join("-", [var.naming.local_network_gateway, each.key]), null
-    ), each.key
+    each.value.name, each.key
   )
 
   gateway_fqdn    = each.value.gateway_fqdn
@@ -16,7 +14,7 @@ resource "azurerm_local_network_gateway" "lgw" {
   gateway_address = each.value.gateway_address
 
   dynamic "bgp_settings" {
-    for_each = try(each.value.bgp_settings != null ? [each.value.bgp_settings] : [], [])
+    for_each = each.value.bgp_settings != null ? { "this" = each.value.bgp_settings } : {}
 
     content {
       asn                 = bgp_settings.value.asn
@@ -31,16 +29,14 @@ resource "azurerm_local_network_gateway" "lgw" {
 }
 
 # connections
-resource "azurerm_virtual_network_gateway_connection" "example" {
+resource "azurerm_virtual_network_gateway_connection" "this" {
   for_each = var.local_gateways
 
   resource_group_name = var.resource_group_name
   location            = var.location
 
   name = coalesce(
-    each.value.connection.name, try(
-      join("-", [var.naming.virtual_network_gateway_connection, each.key]), null
-    ), each.key
+    each.value.connection.name, each.key
   )
 
   virtual_network_gateway_id = coalesce(
@@ -48,10 +44,10 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
     var.virtual_network_gateway_id
   )
 
-  type                               = each.value.connection.type
-  local_network_gateway_id           = azurerm_local_network_gateway.lgw[each.key].id
+  type                               = coalesce(each.value.connection.type, "IPsec")
+  local_network_gateway_id           = azurerm_local_network_gateway.this[each.key].id
   shared_key                         = each.value.connection.shared_key
-  enable_bgp                         = each.value.connection.enable_bgp
+  bgp_enabled                        = each.value.connection.bgp_enabled
   routing_weight                     = each.value.connection.routing_weight
   connection_mode                    = each.value.connection.connection_mode
   authorization_key                  = each.value.connection.authorization_key
@@ -71,7 +67,7 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
   )
 
   dynamic "ipsec_policy" {
-    for_each = try(each.value.connection.ipsec_policy != null ? [each.value.connection.ipsec_policy] : [], [])
+    for_each = each.value.connection.ipsec_policy != null ? { "this" = each.value.connection.ipsec_policy } : {}
 
     content {
       dh_group         = ipsec_policy.value.dh_group
@@ -86,7 +82,7 @@ resource "azurerm_virtual_network_gateway_connection" "example" {
   }
 
   dynamic "custom_bgp_addresses" {
-    for_each = try(each.value.connection.custom_bgp_addresses != null ? [each.value.connection.custom_bgp_addresses] : [], [])
+    for_each = each.value.connection.custom_bgp_addresses != null ? { "this" = each.value.connection.custom_bgp_addresses } : {}
 
     content {
       primary   = custom_bgp_addresses.value.primary

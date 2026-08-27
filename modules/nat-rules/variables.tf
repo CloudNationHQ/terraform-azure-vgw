@@ -35,8 +35,3 @@ variable "resource_group_name" {
   default     = null
 }
 
-variable "naming" {
-  description = "contains naming convention"
-  type        = map(string)
-  default     = null
-}
