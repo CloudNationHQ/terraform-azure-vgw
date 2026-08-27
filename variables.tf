@@ -4,8 +4,8 @@ variable "gateway" {
     name                                  = string
     resource_group_name                   = optional(string)
     location                              = optional(string)
-    sku                                   = optional(string)
-    type                                  = optional(string)
+    sku                                   = string
+    type                                  = string
     vpn_type                              = optional(string)
     bgp_enabled                           = optional(bool)
     generation                            = optional(string)

@@ -67,6 +67,8 @@ module "vgw" {
     name                = module.naming.virtual_network_gateway.name_unique
     location            = module.rg.groups.demo.location
     resource_group_name = module.rg.groups.demo.name
+    sku                 = "VpnGw1"
+    type                = "Vpn"
     active_active       = true
 
     ip_configurations = {
