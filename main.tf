@@ -26,6 +26,8 @@ resource "azurerm_virtual_network_gateway" "this" {
   bgp_route_translation_for_nat_enabled = var.gateway.bgp_route_translation_for_nat_enabled
   default_local_network_gateway_id      = var.gateway.default_local_network_gateway_id
   edge_zone                             = var.gateway.edge_zone
+  minimum_scale_unit                    = var.gateway.minimum_scale_unit
+  maximum_scale_unit                    = var.gateway.maximum_scale_unit
 
   tags = coalesce(
     var.gateway.tags, var.tags
