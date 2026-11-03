@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.1.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v4.0.0...v4.1.0) (2026-11-03)
+
+
+### Features
+
+* add minimum and maximum scale unit properties ([#89](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/89)) ([fd0fa09](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/fd0fa09c3516138bba5b4976b32e8250facadc99))
+* **deps:** bump github.com/klauspost/compress in /tests ([#87](https://github.com/CloudNationHQ/terraform-azure-vgw/issues/87)) ([340cd2f](https://github.com/CloudNationHQ/terraform-azure-vgw/commit/340cd2f8fb008a08945f0590b4802dcb65fba1e1))
+
 ## [4.0.0](https://github.com/CloudNationHQ/terraform-azure-vgw/compare/v3.0.0...v4.0.0) (2026-08-27)
 
 
