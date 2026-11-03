@@ -18,6 +18,8 @@ variable "gateway" {
     bgp_route_translation_for_nat_enabled = optional(bool)
     default_local_network_gateway_id      = optional(string)
     edge_zone                             = optional(string)
+    minimum_scale_unit                    = optional(number)
+    maximum_scale_unit                    = optional(number)
     tags                                  = optional(map(string))
     ip_configurations = map(object({
       name                          = optional(string)
